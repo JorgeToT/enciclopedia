@@ -4,13 +4,14 @@ import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 function ColorModeButton() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <header>
+    <>
       <Button
         onClick={toggleColorMode}
+        w="100%"
         bg={colorMode === "light" ? "darkslateblue" : "lightyellow"}
         _hover={{
           bg: colorMode === "light" ? "darkslateblue" : "lightyellow",
-          transform: "scale(1.1)",
+          transform: "scale(1.03)",
         }}
         _active={{
           bg: colorMode === "light" ? "darkslateblue" : "lightyellow",
@@ -21,7 +22,7 @@ function ColorModeButton() {
           color={colorMode === "light" ? "white" : "black"}
         />
       </Button>
-    </header>
+    </>
   );
 }
 

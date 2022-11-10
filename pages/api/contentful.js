@@ -18,27 +18,10 @@ export default class contentful {
       const data = await fetch(fetchUrl, fetchOptions).then((response) =>
         response.json()
       );
-      console.log(data);
       return data;
     } catch (error) {
       throw new Error("Error al traer los datos");
     }
-  }
-
-  // Total de juegos
-  static async getTotal() {
-    const query = `
-    {
-      productCollection {
-        total
-      }
-    }
-    `;
-
-    const response = await this.callContentful(query);
-    const { data } = response;
-
-    return data;
   }
 
   // Card de juegos
@@ -49,7 +32,7 @@ export default class contentful {
         total
         items{
           titulo
-          tituloImg{
+          img{
             url
           }
           slug
@@ -59,8 +42,112 @@ export default class contentful {
     `;
 
     const response = await this.callContentful(query);
-    const { data } = response;
+    const data = response.data.productCollection;
 
-    return data;w
+    return data;
+  }
+
+  // Card de peliculas
+  static async getDataCardPeliculas() {
+    const query = `
+    {
+      moviesCollection {
+        total
+        items {
+          titulo
+          img {
+            url
+          }
+          slug
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.moviesCollection;
+
+    return data;
+  }
+
+  // Obtener slug de juegos
+  static async getSlugJuegos() {
+    const query = `
+    {
+      productCollection {
+        items{
+          slug
+          titulo
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.productCollection;
+
+    return data;
+  }
+
+  // Obtener slug de peliculas
+  static async getSlugPeliculas() {
+    const query = `
+    {
+      moviesCollection {
+        items{
+          slug
+          titulo
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.moviesCollection;
+    return data;
+  }
+
+  // Obtener datos de un juego
+  static async getDataJuego(slug) {
+    const query = `
+    {
+      productCollection(where: {slug: "${slug}"}) {
+        items{
+          titulo
+          img{
+            url
+          }
+          slug
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.productCollection;
+
+    return data;
+  }
+
+  // Obtener datos de una pelicula
+  static async getDataPelicula(slug) {
+    const query = `
+    {
+      moviesCollection(where: {slug: "${slug}"}) {
+        items{
+          titulo
+          img{
+            url
+          }
+          slug
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.moviesCollection;
+
+    return data;
   }
 }
