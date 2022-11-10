@@ -21,7 +21,7 @@ export default class contentful {
       console.log(data);
       return data;
     } catch (error) {
-      throw new Error("Hubo un problema al traer los datos");
+      throw new Error("Error al traer los datos");
     }
   }
 
