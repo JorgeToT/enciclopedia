@@ -1,11 +1,4 @@
-import {
-  Flex,
-  Link,
-  Image,
-  Heading,
-  useColorMode,
-  Box,
-} from "@chakra-ui/react";
+import { Flex, Link, Heading, useColorMode, Box } from "@chakra-ui/react";
 
 const Card = (data) => {
   const { colorMode } = useColorMode();
