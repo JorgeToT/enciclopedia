@@ -2,7 +2,19 @@ import Sidebar from "../components/Sidebar";
 import { Flex, Box, Divider, Center } from "@chakra-ui/react";
 import Head from "next/head";
 
-const MainLayout = ({ children }) => {
+export async function getStaticProps() {
+  const allCategoriesPeliculas = await contentful.getCategoriesPeliculas();
+  const data = allCategoriesPeliculas;
+  console.log(data);
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+const MainLayout = ({ children, data }) => {
+  console.log(data);
   return (
     <>
       <Head>

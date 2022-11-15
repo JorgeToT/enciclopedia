@@ -1,5 +1,5 @@
 import contentful from "../api/contentful";
-import { Text, Box, Flex, Image, Link, Heading } from "@chakra-ui/react";
+import { Text, Box, Flex, Image, Link, Heading, Divider } from "@chakra-ui/react";
 import MainLayout from "../../layouts/MainLayout";
 
 export async function getStaticPaths() {
@@ -40,7 +40,6 @@ export async function getStaticProps({ params }) {
 
 const MoviePage = ({ data }) => {
   data = data.items[0];
-  console.log(data);
   return (
     <MainLayout>
       <Flex direction={"column"} align={"center"} justify={"center"}>

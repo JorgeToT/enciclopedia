@@ -150,4 +150,40 @@ export default class contentful {
 
     return data;
   }
+
+  // Obtener categorias de juegos
+  static async getCategoriesJuegos() {
+    const query = `
+    {
+      productCollection {
+        items{
+          categoria 
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.productCollection;
+
+    return data;
+  }
+
+  // Obtener categorias de peliculas
+  static async getCategoriesPeliculas() {
+    const query = `
+    {
+      moviesCollection {
+        items {
+          categoria
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.moviesCollection;
+
+    return data;
+  }
 }

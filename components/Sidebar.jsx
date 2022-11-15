@@ -1,7 +1,20 @@
+import { Box, Heading, Flex, Link } from "@chakra-ui/react";
 import ColorModeButton from "./ColorModeButton";
-import { Box, Heading, Flex, Button, Link } from "@chakra-ui/react";
+import SidebarButton from "./SidebarButton";
+import contentful from "../pages/api/contentful";
 
-const Sidebar = () => {
+export async function getStaticProps() {
+  const allCategoriesPeliculas = await contentful.getCategoriesPeliculas();
+  const data = allCategoriesPeliculas;
+  console.log(data);
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+const Sidebar = ({ data }) => {
   return (
     <Box h="100vh" w="20vw" p="20px">
       <Flex direction={"column"}>
@@ -13,16 +26,8 @@ const Sidebar = () => {
             </Heading>
           </Link>
         </Box>
-        <Link href="/juegos" _hover={{ textDecor: "none" }} mb="20px">
-          <Button colorScheme="blue" w="100%">
-            Videojuegos
-          </Button>
-        </Link>
-        <Link href="/peliculas" _hover={{ textDecor: "none" }} mb="20px">
-          <Button colorScheme="blue" w="100%">
-            Películas
-          </Button>
-        </Link>
+        <SidebarButton props={{ ruta: "juegos", nombre: "Juegos" }} />
+        <SidebarButton props={{ ruta: "peliculas", nombre: "Películas" }} />
       </Flex>
     </Box>
   );
