@@ -1,7 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 export default class contentful {
-  // Peticiones a la API de Contentful
   static async callContentful(query) {
     const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${process.env.CF_SPACE_ID}`;
 
@@ -151,13 +148,17 @@ export default class contentful {
     return data;
   }
 
-  // Obtener categorias de juegos
-  static async getCategoriesJuegos() {
+  static async getJuegosByCategory(categoria) {
     const query = `
     {
-      productCollection {
+      productCollection(where: {categoria_contains_some:"${categoria}"}) {
+        total
         items{
-          categoria 
+          titulo
+          img{
+            url
+          }
+          slug
         }
       }
     }
@@ -169,12 +170,50 @@ export default class contentful {
     return data;
   }
 
-  // Obtener categorias de peliculas
+  static async getPeliculasByCategory(categoria) {
+    const query = `
+    {
+      moviesCollection(where: {categoria_contains_some:"${categoria}"}) {
+        total
+        items{
+          titulo
+          img{
+            url
+          }
+          slug
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.moviesCollection;
+
+    return data;
+  }
+
+  static async getCategoriesJuegos() {
+    const query = `
+    {
+      productCollection {
+        items{
+          categoria
+        }
+      }
+    }
+    `;
+
+    const response = await this.callContentful(query);
+    const data = response.data.productCollection;
+
+    return data;
+  }
+
   static async getCategoriesPeliculas() {
     const query = `
     {
       moviesCollection {
-        items {
+        items{
           categoria
         }
       }

@@ -1,5 +1,6 @@
 import contentful from "../api/contentful";
-import { Text, Box, Flex, Image, Link, Heading, Divider } from "@chakra-ui/react";
+import { Box, Flex, Heading, Divider } from "@chakra-ui/react";
+import Head from "next/head";
 import MainLayout from "../../layouts/MainLayout";
 
 export async function getStaticPaths() {
@@ -41,17 +42,23 @@ export async function getStaticProps({ params }) {
 const MoviePage = ({ data }) => {
   data = data.items[0];
   return (
-    <MainLayout>
-      <Flex direction={"column"} align={"center"} justify={"center"}>
-        <Heading as="h1" fontSize={"4xl"} mb="20px">
-          {data.titulo}
-        </Heading>
-        <Divider />
-        <Box w="500px" mt="20px">
-          <img src={data.img.url} alt={data.titulo}></img>
-        </Box>
-      </Flex>
-    </MainLayout>
+    <>
+      <Head>
+        <title>{data.titulo}</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <MainLayout>
+        <Flex direction={"column"} align={"center"} justify={"center"}>
+          <Heading as="h1" fontSize={"4xl"} mb="20px">
+            {data.titulo}
+          </Heading>
+          <Divider />
+          <Box w="500px" mt="20px">
+            <img src={data.img.url} alt={data.titulo}></img>
+          </Box>
+        </Flex>
+      </MainLayout>
+    </>
   );
 };
 
